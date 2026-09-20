@@ -16,5 +16,9 @@ LOW_PRIORITY_FILES = {
     "poetry.lock",
     "uv.lock",
     "yarn.lock",
+    "mix.lock",
+    "rebar.lock",
+    "gradle.lockfile",
+    "symphony.lock",
 }
 LOW_PRIORITY_SUFFIXES = (".min.css", ".min.js", ".map")

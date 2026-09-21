@@ -3,6 +3,7 @@ from __future__ import annotations
 import click
 
 from diffsay.diff import Diff
+from diffsay.helpers import commit, is_interactive
 from diffsay.spinner import spinner
 
 
@@ -17,7 +18,13 @@ from diffsay.spinner import spinner
         f"{Diff.DEFAULT_MODEL_ORG}/."
     ),
 )
-def main(model: str) -> None:
+@click.option(
+    "-p",
+    "--print-only",
+    is_flag=True,
+    help="Print the message and exit instead of committing.",
+)
+def main(model: str, print_only: bool) -> None:
     """Generate a conventional commit message from the staged git diff."""
     diff = Diff(model)
     diff_text = diff.staged()
@@ -32,4 +39,12 @@ def main(model: str) -> None:
 
     with spinner():
         message = diff.say(prepared)
-    click.echo(message)
+
+    if print_only or not is_interactive():
+        click.echo(message)
+        return
+
+    message = click.prompt("Commit", default=message)
+    if not message.strip():
+        raise click.ClickException("Empty commit message.")
+    commit(message)

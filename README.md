@@ -23,7 +23,13 @@ git add .
 diffsay
 ```
 
-Prints one Conventional Commit subject line on stdout.
+In a terminal, edit the suggested subject and press Enter to `git commit`. Ctrl-C cancels.
+
+Piped use, or `--print-only`, only prints the subject:
+
+```bash
+git commit -m "$(diffsay --print-only)"
+```
 
 Default model is `Qwen2.5-Coder-7B-Instruct-4bit`. Bare names resolve under `mlx-community/`.
 

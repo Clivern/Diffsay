@@ -115,6 +115,47 @@ def test_main_warns_when_diff_is_truncated() -> None:
     assert "truncated" in "".join(chunks).lower()
 
 
+def test_main_prints_when_not_interactive() -> None:
+    runner = CliRunner()
+    with (
+        patch.object(Diff, "staged", return_value="diff --git a/x b/x\n+ok\n"),
+        patch.object(Diff, "say", return_value="feat(x): add ok"),
+        patch("diffsay.cli.commit") as commit,
+    ):
+        result = runner.invoke(main)
+    assert result.exit_code == 0
+    assert "feat(x): add ok" in result.output
+    commit.assert_not_called()
+
+
+def test_main_print_only_skips_commit() -> None:
+    runner = CliRunner()
+    with (
+        patch.object(Diff, "staged", return_value="diff --git a/x b/x\n+ok\n"),
+        patch.object(Diff, "say", return_value="feat(x): add ok"),
+        patch("diffsay.cli.is_interactive", return_value=True),
+        patch("diffsay.cli.commit") as commit,
+    ):
+        result = runner.invoke(main, ["--print-only"])
+    assert result.exit_code == 0
+    assert "feat(x): add ok" in result.output
+    commit.assert_not_called()
+
+
+def test_main_commits_edited_message() -> None:
+    runner = CliRunner()
+    with (
+        patch.object(Diff, "staged", return_value="diff --git a/x b/x\n+ok\n"),
+        patch.object(Diff, "say", return_value="feat(x): add ok"),
+        patch("diffsay.cli.is_interactive", return_value=True),
+        patch("diffsay.cli.click.prompt", return_value="feat(x): add tests"),
+        patch("diffsay.cli.commit") as commit,
+    ):
+        result = runner.invoke(main)
+    assert result.exit_code == 0
+    commit.assert_called_once_with("feat(x): add tests")
+
+
 def test_spinner_is_silent_without_tty(capsys) -> None:
     with spinner("working"):
         pass

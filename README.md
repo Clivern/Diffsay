@@ -7,7 +7,7 @@ Requires Python 3.10+ and Apple silicon.
 ### Install
 
 ```bash
-uv tool install diffsay
+uv tool install diffsay==v0.2.0
 ```
 
 Or from this repo:
@@ -44,12 +44,12 @@ Use a 7B+ instruct model. Sub-3B models (Gemma 1B, Qwen 1.5B) tend to invent tok
 | `Qwen2.5-Coder-7B-Instruct-4bit` | ~6–8 GB | Default |
 | `Qwen2.5-Coder-14B-Instruct-4bit` | ~10–12 GB | Better whole-diff summaries |
 | `Qwen2.5-Coder-32B-Instruct-4bit` | ~20+ GB | Needs 24+ GB unified memory |
-| `Llama-3.1-8B-Instruct-4bit` | ~6–8 GB | US, follows instructions well |
+| `Llama-3.1-8B-Instruct-4bit` | ~6–8 GB | US Model, follows instructions well |
 | `Qwen3-8B-Instruct-4bit` | ~6–8 GB | Newer general model |
 | `Qwen3-14B-Instruct-4bit` | ~10–12 GB | Stronger feat vs fix |
 
 
-## Develop
+### Develop
 
 ```bash
 uv sync

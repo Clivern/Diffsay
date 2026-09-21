@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Generate a conventional commit message from the staged git diff."
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = ["click>=8.1", "mlx-lm"]
+dependencies = ["click>=8.1", "mlx-lm", "prompt-toolkit>=3"]
 
 [project.scripts]
 diffsay = "diffsay.cli:main"

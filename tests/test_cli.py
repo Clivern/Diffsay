@@ -148,7 +148,7 @@ def test_main_commits_edited_message() -> None:
         patch.object(Diff, "staged", return_value="diff --git a/x b/x\n+ok\n"),
         patch.object(Diff, "say", return_value="feat(x): add ok"),
         patch("diffsay.cli.is_interactive", return_value=True),
-        patch("diffsay.cli.click.prompt", return_value="feat(x): add tests"),
+        patch("diffsay.cli.edit_message", return_value="feat(x): add tests"),
         patch("diffsay.cli.commit") as commit,
     ):
         result = runner.invoke(main)

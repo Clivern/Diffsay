@@ -3,7 +3,7 @@ from __future__ import annotations
 import click
 
 from diffsay.diff import Diff
-from diffsay.helpers import commit, is_interactive
+from diffsay.helpers import commit, edit_message, is_interactive
 from diffsay.spinner import spinner
 
 
@@ -44,7 +44,7 @@ def main(model: str, print_only: bool) -> None:
         click.echo(message)
         return
 
-    message = click.prompt("Commit", default=message)
+    message = edit_message(message)
     if not message.strip():
         raise click.ClickException("Empty commit message.")
     commit(message)

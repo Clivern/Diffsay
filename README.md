@@ -23,7 +23,7 @@ git add .
 diffsay
 ```
 
-In a terminal, edit the suggested subject and press Enter to `git commit`. Ctrl-C cancels.
+In a terminal, the suggested subject is prefilled. Move with the arrow keys to edit it, then press Enter to `git commit`. Ctrl-C cancels.
 
 Piped use, or `--print-only`, only prints the subject:
 

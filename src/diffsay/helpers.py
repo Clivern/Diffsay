@@ -10,3 +10,9 @@ def is_interactive() -> bool:
 
 def commit(message: str) -> None:
     subprocess.check_call(["git", "commit", "-m", message])
+
+
+def edit_message(default: str, prompt_text: str = "Commit: ") -> str:
+    from prompt_toolkit import prompt
+
+    return prompt(prompt_text, default=default)
